@@ -89,7 +89,6 @@ python-dateutil==2.9.0.post0
 pytk==0.0.2.1
 pyttsx3==2.97
 pytz==2024.2
-pywin32==306
 redis==5.2.0
 regex==2024.11.6
 reportlab==4.3.1
