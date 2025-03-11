@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        .graphs-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px; /* Space between graphs */
+            margin-top: 20px;
+        }
+        .graph {
+            width: 45%; /* Ensure equal size */
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 5px;
+        }
+        .no-job-desc {
+            font-size: 18px;
+            font-weight: bold;
+            color: red;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: rgb(78, 185, 92);">Resume Analysis Dashboard</h1>
+        <h3>Visual representation of resume ranking results.</h3>
+
+        <h2>ATS Resume Score: {{ ats_score }}%</h2>
+        
+        {% if match_score != "N/A" %}
+            <h2>Job Match Score: {{ match_score }}%</h2>
+        {% else %}
+            <div class="no-job-desc">No Job Description Provided</div>
+        {% endif %}
+
+        <!-- <h3>ATS Score Breakdown & Top Resume Keywords</h3> -->
+        <div class="graphs-container">
+            <div class="graph">
+                <img src="data:image/png;base64,{{ ats_image }}" alt="ATS Breakdown">
+            </div>
+            <div class="graph">
+                <img src="data:image/png;base64,{{ keyword_image }}" alt="Keyword Frequency">
+            </div>
+        </div>
+        
+        <h3>Resume Optimization Insights:</h3>
+        <div style="text-align: left; margin: 20px auto; width: 70%; padding: 10px; border: 1px solid #ddd; border-radius: 10px;">
+            {% if insights %}
+                <ul>
+                    {% for insight in insights %}
+                        <li>{{ insight }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No insights available.</p>
+            {% endif %}
+        </div>
+        {% if pdf_path %}
+            <br>
+            <a href="/download/{{ pdf_path.split('/')[-1] }}" class="btn btn-success">Download PDF Report</a>
+
+        {% endif %}
+
+
+        <br>
+        <a href="/" class="btn btn-primary">Upload Another Resume</a>
+    </div>
+</body>
+</html>
